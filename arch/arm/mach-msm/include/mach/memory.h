@@ -19,20 +19,14 @@
 /* physical offset of RAM */
 #if defined(CONFIG_ARCH_QSD8X50)
 #define PHYS_OFFSET		UL(0x20000000)
-#elif defined(CONFIG_ARCH_MSM7225)
-#define PHYS_OFFSET		UL(0x02E00000)
-#elif defined(CONFIG_ARCH_MSM7200A)
+#elif defined(CONFIG_MSM_AMSS_SUPPORT_256MB_EBI1)
 #define PHYS_OFFSET		UL(0x19200000)
-#elif defined(CONFIG_ARCH_MSM7201A)
-#define PHYS_OFFSET		UL(0x19200000)
-#elif defined(CONFIG_ARCH_MSM7X00A) && defined(CONFIG_MACH_DESIREC)
-#define PHYS_OFFSET		UL(0x11200000)
-#elif defined(CONFIG_ARCH_MSM7X00A)
-#define PHYS_OFFSET		UL(0x19200000)
-#elif defined(CONFIG_ARCH_MSM7227)
-#define PHYS_OFFSET		UL(0x12C00000)
+#else
+#if defined(CONFIG_MSM_AMSS_RADIO2708_MEMMAP)
+#define PHYS_OFFSET     UL(0x02000000)
 #else
 #define PHYS_OFFSET		UL(0x10000000)
+#endif
 #endif
 
 /* bus address and physical addresses are identical */

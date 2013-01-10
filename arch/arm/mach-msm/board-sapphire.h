@@ -65,7 +65,42 @@
 #define SMI32_MSM_PMEM_CAMERA_SIZE	0x01000000
 
 #else
+
+#if defined(CONFIG_MSM_AMSS_RADIO2708_MEMMAP)
+
+/* New radio 2708 Memory Map */
+
+#define MSM_EBI_BASE            0x10000000
+
+#define SMI64_MSM_PMEM_MDP_BASE 0x15900000
+#define SMI64_MSM_PMEM_MDP_SIZE 0x00800000
+
+#define SMI64_MSM_PMEM_ADSP_BASE 0x16100000
+#define SMI64_MSM_PMEM_ADSP_SIZE 0x00800000
+
+#define SMI64_MSM_PMEM_CAMERA_BASE      0x15400000
+#define SMI64_MSM_PMEM_CAMERA_SIZE      0x00500000
+
+#define SMI64_MSM_FB_BASE               0x00700000
+#define SMI64_MSM_FB_SIZE               0x00100000
+
+#define SMI64_MSM_RAM_CONSOLE_BASE  0x169E0000
+#define SMI64_MSM_RAM_CONSOLE_SIZE  128 * SZ_1K
+
+#define SMI64_MSM_PMEM_GPU1_SIZE        0x00800000
+#define SMI64_MSM_PMEM_GPU1_BASE     (0x169E0000 + (128 * SZ_1K))
+
+#define SMI64_MSM_LINUX_BASE        0x02000000
+#define SMI64_MSM_LINUX_SIZE        0x02000000
+
+#define SMI64_MSM_LINUX2_BASE       MSM_EBI_BASE
+#define SMI64_MSM_LINUX2_SIZE       0x05400000
+
+#else /* Not CONFIG_MSM_AMSS_RADIO2708_MEMMAP */
+
 /* AMSS supports only 128MB EBI1. */
+#define MSM_EBI_BASE				0x10000000
+
 #define SMI64_MSM_FB_BASE			0x00700000
 #define SMI64_MSM_FB_SIZE			0x00100000
 
@@ -86,6 +121,8 @@
 
 #define SMI64_MSM_PMEM_GPU1_SIZE	0x800000
 #define SMI64_MSM_PMEM_GPU1_BASE	(SMI64_MSM_RAM_CONSOLE_BASE - SMI64_MSM_PMEM_GPU1_SIZE)
+
+#endif /*End if defined CONFIG_MSM_AMSS_RADIO2708_MEMMAP */
 
 #define SMI32_MSM_LINUX_BASE		MSM_EBI_BASE
 #define SMI32_MSM_LINUX_SIZE		0x5400000
@@ -109,6 +146,10 @@
 #define SMI32_MSM_PMEM_CAMERA_SIZE	0
 
 #endif
+
+#define EBI1_DUAL_128MB_128MB	17
+#define EBI1_MONO_256MB		2
+#define EBI1_MONO_128MB		1
 
 #define DECLARE_MSM_IOMAP
 #include <mach/msm_iomap.h>
@@ -151,7 +192,7 @@
 ** Sapphire Altera CPLD can keep the registers value and
 ** doesn't need a shadow to backup.
 **/
-#define SAPPHIRE_CPLD_BASE   0xE8100000	/* VA */
+#define SAPPHIRE_CPLD_BASE   0xFA000000	/* VA */
 #define SAPPHIRE_CPLD_START  0x98000000	/* PA */
 #define SAPPHIRE_CPLD_SIZE   SZ_4K
 
@@ -257,6 +298,7 @@ void config_sapphire_camera_off_gpios(void);
 int sapphire_get_smi_size(void);
 unsigned int sapphire_get_hwid(void);
 unsigned int sapphire_get_skuid(void);
+unsigned int sapphire_get_die_size(void);
 unsigned sapphire_engineerid(void);
 unsigned int is_12pin_camera(void);
 unsigned int is_sapphire_gpiov20(void);
