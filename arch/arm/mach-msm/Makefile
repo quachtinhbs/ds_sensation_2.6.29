@@ -150,7 +150,7 @@ obj-$(CONFIG_ARCH_MSM7225) += msm_vibrator.o devices_htc.o htc_wifi_nvs.o htc_aw
 obj-$(CONFIG_ARCH_MSM7227) += msm_vibrator.o devices_htc.o htc_wifi_nvs.o htc_awb_cal.o
 obj-$(CONFIG_ARCH_QSD8X50) += msm_vibrator.o
 obj-$(CONFIG_ARCH_MSM_FLASHLIGHT) += msm_flashlight.o
-# obj-$(CONFIG_TROUT_BATTCHG) += htc_battery.o
+obj-$(CONFIG_TROUT_BATTCHG) += htc_battery_trout.o
 # obj-$(CONFIG_TROUT_BATTCHG) += htc_power_supply.o
 obj-$(CONFIG_TROUT_BATTCHG_DOCK) += htc_one_wire.o
 
