@@ -810,6 +810,66 @@ static struct msm_i2c_device_platform_data sapphire_i2c_device_data = {
 	.data_strength = GPIO_4MA,
 };
 
+#define SND(num, desc) { .name = desc, .id = num }
+static struct snd_endpoint snd_endpoints_list[] = {
+	SND(0, "HANDSET"),
+	SND(1, "SPEAKER"),
+	SND(2, "HEADSET"),
+	SND(3, "BT"),
+	SND(44, "BT_EC_OFF"),
+	SND(10, "HEADSET_AND_SPEAKER"),
+	SND(256, "CURRENT"),
+
+	/* Bluetooth accessories. */
+
+	SND(12, "HTC BH S100"),
+	SND(13, "HTC BH M100"),
+	SND(14, "Motorola H500"),
+	SND(15, "Nokia HS-36W"),
+	SND(16, "PLT 510v.D"),
+	SND(17, "M2500 by Plantronics"),
+	SND(18, "Nokia HDW-3"),
+	SND(19, "HBH-608"),
+	SND(20, "HBH-DS970"),
+	SND(21, "i.Tech BlueBAND"),
+	SND(22, "Nokia BH-800"),
+	SND(23, "Motorola H700"),
+	SND(24, "HTC BH M200"),
+	SND(25, "Jabra JX10"),
+	SND(26, "320Plantronics"),
+	SND(27, "640Plantronics"),
+	SND(28, "Jabra BT500"),
+	SND(29, "Motorola HT820"),
+	SND(30, "HBH-IV840"),
+	SND(31, "6XXPlantronics"),
+	SND(32, "3XXPlantronics"),
+	SND(33, "HBH-PV710"),
+	SND(34, "Motorola H670"),
+	SND(35, "HBM-300"),
+	SND(36, "Nokia BH-208"),
+	SND(37, "Samsung WEP410"),
+	SND(38, "Jabra BT8010"),
+	SND(39, "Motorola S9"),
+	SND(40, "Jabra BT620s"),
+	SND(41, "Nokia BH-902"),
+	SND(42, "HBH-DS220"),
+	SND(43, "HBH-DS980"),
+};
+#undef SND
+
+static struct msm_snd_endpoints sapphire_snd_endpoints = {
+	.endpoints = snd_endpoints_list,
+	.num = ARRAY_SIZE(snd_endpoints_list),
+};
+
+static struct platform_device sapphire_snd = {
+	.name = "msm_snd",
+	.id = -1,
+	.dev	= {
+		.platform_data = &sapphire_snd_endpoints,
+	},
+};
+
 #ifdef CONFIG_MSM_CAMERA
 void config_sapphire_camera_on_gpios(void);
 void config_sapphire_camera_on_gpios(void);
@@ -880,6 +940,7 @@ static struct platform_device *devices[] __initdata = {
 #ifdef CONFIG_HTC_PWRSINK
 	&sapphire_pwr_sink,
 #endif
+	&sapphire_snd,
 };
 
 extern struct sys_timer msm_timer;
